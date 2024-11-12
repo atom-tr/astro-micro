@@ -1,0 +1,71 @@
+---
+title: 'How to Deploy Ghost blog in Cloudflare or Github Page'
+description: 'How to Deploy Ghost blog in Cloudflare or Github Page'
+date: 2024-10-23
+tags: ['webdev', 'opinion']
+authors: ['atomtr']
+---
+
+Bài viết này sẽ hướng dẫn cách cung cấp một blog Ghost dưới dạng một ứng dụng web tĩnh, được triển khai trên dịch vụ lưu trữ tĩnh miễn phí như Cloudflare/GitHub Pages hoặc Netlify. Ghost là một nền tảng viết blog rất tốt, đặc biệt với hỗ trợ xuất bản nội dung SEO tốt và giao diện thân thiện với người dùng.
+
+Tuy nhiên, Ghost yêu cầu một máy chủ luôn chạy Node.js, gây khó khăn nếu bạn chỉ cần một blog đơn giản, không cần cập nhật thường xuyên.
+
+Giải pháp là chuyển blog Ghost thành một trang web tĩnh, có thể triển khai trên dịch vụ lưu trữ web tĩnh miễn phí, giúp bạn giảm chi phí và dễ dàng quản lý hơn.
+
+### Lợi ích của việc cung cấp một trang web tĩnh:
+
+- **Giá rẻ:** Không cần trả tiền cho máy chủ Node.js chạy 24/7.
+- **Bảo mật tốt hơn:** Không có backend đồng nghĩa với việc không có lỗ hổng bảo mật mà hacker có thể khai thác.
+- **Tốc độ tải trang nhanh hơn:** Trang web tĩnh thường có tốc độ tải nhanh hơn vì không cần phải xử lý qua máy chủ phía sau.
+
+### Lưu ý:
+
+- Sau khi trang web tĩnh đã được triển khai, bạn sẽ không thể sử dụng các tính năng động của Ghost như bình luận, tìm kiếm, hoặc các tích hợp phức tạp. Tuy nhiên, bạn có thể thêm các tính năng này bằng cách sử dụng các dịch vụ của bên thứ ba như Disqus cho bình luận và Algolia cho tìm kiếm.
+
+## Bước 1: Run Ghost blog
+
+Để có thể convert Ghost sang dạng static website, đầu tiên chúng ta cần deploy Ghost blog trước ở bất kì đâu. Ví dụ ở đây mình sẽ deploy ở máy tính cá nhân.
+
+🔎 [Cài đặt Ghost blog](https://ghost.org/docs/install/)
+
+Sau khi khởi động Ghost, bạn có thể sử dụng nó như bình thường, thiết lập giao diện và thêm nội dung cần thiết. Nếu bạn chuyển từ cài đặt trước đó, giờ bạn có thể nhập nội dung và áp dụng mẫu giao diện.
+
+Cuối cùng, khi mọi thứ đã sẵn sàng theo mong đợi của bạn, đến lúc xây dựng phiên bản tĩnh và xuất bản nó lên Cloudflare Pages!
+
+## Bước 2: Export thành website tĩnh
+
+Sau khi tạo ra nội dung, bạn sẽ cần xuất trang web thành các tệp HTML tĩnh. Để làm việc này, bạn có thể sử dụng các công cụ như [ghost-static-site-generator](https://github.com/Fried-Chicken/ghost-static-site-generator?ref=atomtr.link), một plugin giúp tạo bản sao tĩnh của trang Ghost.
+
+- Tạo folder mới để lưu trữ website: VD `T:/portfolio`
+- Chạy lệnh tạo website tĩnh từ blog
+
+```ps
+node src\index.js --domain http://localhost:2368 \
+--productionDomain https://www.example.com \
+--dest T:/portfolio
+```
+
+- **--domain** là đường dẫn Ghost blog đang chạy
+- **--productionDomain** là domain bạn muốn triển khai web tĩnh
+- **--dest** là folder chứa web tĩnh sau export
+
+Bây giờ hãy vào folder `--dest` và tạo git repo ở đây để có thể triển khai bằng Github/Cloudflare Page.
+
+!!! warning
+    1. Tool được viết cho theme Casper, nên nếu bạn sử dụng theme khác hoặc có chỉnh sửa, hãy nhớ copy folder assets vào folder assets ở `--dest`
+    2. Tool khi replace domain sẽ nhiều lúc bị sót, hãy nhớ kiểm tra lại và replace domain cho production.
+
+## Bước 3: Triển khai web tĩnh
+
+Bạn có thể triển khai trang tĩnh trên các nền tảng như GitHub Pages, Netlify, Vercel, hoặc bất kỳ dịch vụ lưu trữ tĩnh nào khác. Chúng hoàn toàn miễn phí cho các trang cá nhân hoặc có mức giá rất phải chăng.
+
+Bạn có thể đọc hướng dẫn của từng nền tảng bạn chọn sử dụng.
+
+## Bước N: Cập nhật nội dung
+
+Khi bạn muốn cập nhật nội dung hoặc thực hiện các hành động tương tự, tất cả những gì bạn cần làm là:
+
+1. Thực hiện lại bước 2
+2. Commit các thay đổi và đẩy chúng lên kho GitHub của bạn
+
+Cloudflare sẽ phát hiện các cập nhật trong GitHub ngay khi chúng được commit (hoặc merge từ một nhánh khác, nếu bạn muốn xem trước các thay đổi của mình thay vì triển khai trực tiếp) và sẽ tự động triển khai chúng.

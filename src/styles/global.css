@@ -79,6 +79,14 @@
   .disable-transitions * {
     @apply !transition-none;
   }
+  .animate {
+    @apply -translate-y-3;
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .animate.show {
+    @apply translate-y-0 opacity-100;
+  }
 }
 
 @layer components {

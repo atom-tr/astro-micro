@@ -6,7 +6,8 @@ import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 
-const projects = await getCollection('projects')
+const projects = (await getCollection("projects"))
+  .filter((project) => !project.data.draft);
 ---
 
 <Layout title="About" description={SITE.DESCRIPTION}>
@@ -15,14 +16,13 @@ const projects = await getCollection('projects')
 
     <section>
       <div class="min-w-full">
-        <h1 class="mb-4 text-3xl font-bold">Some more about us</h1>
-        <p class="prose prose-neutral mb-8 dark:prose-invert">
-          {SITE.TITLE} is an opinionated, no-frills static blogging template built
-          with Astro.
+        <h1 class="mb-4 text-3xl font-bold">Some more about me</h1>
+        <p class="prose prose-neutral animate mb-8 dark:prose-invert">
+          {SITE.TITLE}, a developer with a passion for automating everything..
         </p>
 
-        <h2 class="mb-4 text-2xl font-semibold">Our Projects</h2>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <h2 class="mb-4 text-2xl font-semibold">Recent Projects</h2>
+        <div class="grid animate gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => <ProjectCard project={project} />)}
         </div>
       </div>

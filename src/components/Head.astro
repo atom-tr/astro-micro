@@ -28,8 +28,8 @@ const { title, description, image = '/static/twitter-card.png' } = Astro.props
 <meta name="description" content={description} />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.webp" />
+<!-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" /> -->
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#121212" />
 <meta name="msapplication-TileColor" content="#121212" />
@@ -47,6 +47,10 @@ const { title, description, image = '/static/twitter-card.png' } = Astro.props
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- PageFind -->
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
 
 <ViewTransitions />
 
@@ -78,10 +82,33 @@ const { title, description, image = '/static/twitter-card.png' } = Astro.props
     }
   }
 
+  function animate() {
+    const animateElements = document.querySelectorAll(".animate");
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add("show");
+      }, index * 100);
+    });
+  }
   setDarkMode(document)
 
   document.addEventListener('astro:before-swap', (ev) => {
     // Pass the incoming document to set the theme on it
     setDarkMode(ev.newDocument)
+    animate();
+    setGiscusTheme();
   })
+  const setGiscusTheme = () => {
+  const giscus = document.querySelector(".giscus-frame");
+
+  const isDark = document.documentElement.classList.contains("dark");
+
+  if (giscus) {
+    const url = new URL(giscus.src);
+    // Change "dark" and "light" to other Giscus themes
+    url.searchParams.set("theme", isDark ? "dark" : "light");
+    giscus.src = url.toString();
+  }
+};
 </script>

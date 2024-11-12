@@ -12,20 +12,11 @@ interface Props {
 
 const { links, className } = Astro.props
 
-const iconMap = {
-  Website: 'lucide:globe',
-  GitHub: 'lucide:github',
-  LinkedIn: 'lucide:linkedin',
-  Twitter: 'lucide:twitter',
-  Email: 'lucide:mail',
-  RSS: 'lucide:rss',
-}
-
-const getSocialLink = ({ href, label }: SocialLink) => ({
+const getSocialLink = ({ href, label, icon }: SocialLink) => ({
   href: label === 'Email' ? `mailto:${href}` : href,
   ariaLabel: label,
   iconName:
-    iconMap[label as keyof typeof iconMap] || 'lucide:message-circle-question',
+  icon || 'lucide:message-circle-question',
 })
 ---
 

@@ -16,6 +16,7 @@ import remarkEmoji from 'remark-emoji'
 import remarkMath from 'remark-math'
 import remarkToc from 'remark-toc'
 import sectionize from '@hbsnow/rehype-sectionize'
+import pagefind from "astro-pagefind"
 
 import icon from 'astro-icon'
 

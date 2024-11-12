@@ -1,3 +1,5 @@
+import { SITE as ASTRO_SITE, SOCIAL_LINKS as ASTRO_SOCIAL_LINKS } from '@/shared-configs/astro';
+
 export type Site = {
   TITLE: string
   DESCRIPTION: string
@@ -10,28 +12,16 @@ export type Site = {
 export type Link = {
   href: string
   label: string
+  icon?: string
 }
 
-export const SITE: Site = {
-  TITLE: 'astro-erudite',
-  DESCRIPTION:
-    'astro-erudite is a opinionated, no-frills blogging template—built with Astro, Tailwind, and shadcn/ui.',
-  EMAIL: 'jason@enscribe.dev',
-  NUM_POSTS_ON_HOMEPAGE: 2,
-  POSTS_PER_PAGE: 3,
-  SITEURL: 'https://astro-erudite.vercel.app',
-}
+export const SITE: Site = ASTRO_SITE
 
 export const NAV_LINKS: Link[] = [
   { href: '/blog', label: 'blog' },
-  { href: '/authors', label: 'authors' },
+  // { href: '/authors', label: 'authors' },
   { href: '/about', label: 'about' },
   { href: '/tags', label: 'tags' },
 ]
 
-export const SOCIAL_LINKS: Link[] = [
-  { href: 'https://github.com/jktrn', label: 'GitHub' },
-  { href: 'https://twitter.com/enscry', label: 'Twitter' },
-  { href: 'jason@enscribe.dev', label: 'Email' },
-  { href: '/rss.xml', label: 'RSS' },
-]
+export const SOCIAL_LINKS: Link[] = ASTRO_SOCIAL_LINKS

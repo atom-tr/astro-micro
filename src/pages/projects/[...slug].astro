@@ -1,7 +1,6 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
-import Giscus from '@/components/Giscus.astro'
 import PostNavigation from '@/components/PostNavigation.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
 import { badgeVariants } from '@/components/ui/badge'
@@ -14,7 +13,7 @@ import { Image } from 'astro:assets'
 import { type CollectionEntry, getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog'))
+  const posts = (await getCollection('projects'))
     .filter((post) => !post.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   return posts.map((post) => ({
@@ -22,9 +21,9 @@ export async function getStaticPaths() {
     props: post,
   }))
 }
-type Props = CollectionEntry<'blog'>
+type Props = CollectionEntry<'projects'>
 
-const posts = (await getCollection('blog'))
+const posts = (await getCollection('projects'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 
@@ -64,7 +63,7 @@ const authors = await parseAuthors(post.data.authors ?? [])
   >
     <Breadcrumbs
       items={[
-        { href: '/blog', label: 'Blog', icon: 'lucide:archive' },
+        { href: '/projects', label: 'Blog', icon: 'lucide:archive' },
         { label: post.data.title, icon: 'lucide:file-text' },
       ]}
       class="col-start-2"
@@ -156,9 +155,6 @@ const authors = await parseAuthors(post.data.authors ?? [])
       class="prose prose-neutral col-start-2 max-w-none dark:prose-invert"
     >
       <Content />
-      <div class="mt-24">
-        <Giscus />
-      </div>
     </article>
 
     <PostNavigation prevPost={prevPost} nextPost={nextPost} />
