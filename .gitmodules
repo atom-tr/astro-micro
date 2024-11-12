@@ -1,0 +1,3 @@
+[submodule "src/shared-configs"]
+	path = src/shared-configs
+	url = https://github.com/atom-tr/shared-configs.git
