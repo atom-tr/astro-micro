@@ -1,19 +1,23 @@
 ---
 import Link from '@/components/Link.astro'
 import { Badge } from '@/components/ui/badge'
+// import {ProjectDialog} from '@/components/ui/dialog'
+
 import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
+import React from 'react'
 
 type Props = {
   project: CollectionEntry<'projects'>
 }
 
 const { project } = Astro.props
----
+const { Content, headings } = await project.render()
 
+---
 <div
-  class="overflow-hidden rounded-xl border transition-colors duration-300 ease-in-out hover:bg-secondary/50"
->
+    class="overflow-hidden rounded-xl border transition-colors duration-300 ease-in-out hover:bg-secondary/50"
+  >
   <Link href={project.data.link || "#"} class="block" external>
     <Image
       src={project.data.image}
@@ -29,7 +33,7 @@ const { project } = Astro.props
       </p>
       <div class="flex flex-wrap gap-2">
         {
-          project.data.tags.map((tag) => (
+          project.data.tags.map((tag: string) => (
             <Badge variant="secondary" showHash={false}>
               {tag}
             </Badge>
@@ -39,3 +43,4 @@ const { project } = Astro.props
     </div>
   </Link>
 </div>
+<!-- <ProfileDialog  client:load/> -->

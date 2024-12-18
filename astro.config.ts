@@ -31,6 +31,7 @@ export default defineConfig({
     mdx(),
     react(),
     icon(),
+    pagefind(),
   ],
   markdown: {
     syntaxHighlight: false,
