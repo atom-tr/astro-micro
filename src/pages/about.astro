@@ -14,8 +14,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { getCollection } from 'astro:content'
 
-const projects = (await getCollection("projects"))
-  .filter((project) => !project.data.draft);
+const projects = await getCollection("projects");
 ---
 
 <Layout title="About" description={SITE.DESCRIPTION}>
