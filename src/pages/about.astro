@@ -2,8 +2,16 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
+import Skill from '@/components/Skill.astro'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { getCollection } from 'astro:content'
 
 const projects = (await getCollection("projects"))
@@ -24,6 +32,38 @@ const projects = (await getCollection("projects"))
         <h2 class="mb-4 text-2xl font-semibold">Recent Projects</h2>
         <div class="grid animate gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+        <!-- <Separator /> -->
+        <h2 class="mt-5 mb-4 text-2xl font-semibold">Roles</h2>
+        <div class="grid animate gap-6 sm:grid-cols-1 lg:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-3xl">Developer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p class="mb-2 text-sm text-muted-foreground">
+                As an integral part of the System Administrator team, I worked as a Python Developer for over 4 years, gaining a deep understanding of core Python development. I have a thorough grasp of Object-Oriented Programming and Design Patterns, with a strong focus on scripting and developing web-based tools.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-3xl">DevOps</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p class="mb-2 text-sm text-muted-foreground">
+                As a DevOps Engineer, I started with cultivating the DevOps culture when we moved from Monolith to Agile Implementation. Further automated the process end-to-end. Right from Building the code (CI) to deploying it to different enviornment (CD). Recently started creating Infrastructure with the help of code (IAC).
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+        <h2 class="mt-5 mb-5 text-2xl font-semibold">Skills</h2>
+        <div class="grid animate gap-5 sm:grid-cols-1 lg:grid-cols-2">
+          <div>
+            <p class="text-sm text-muted-foreground">Programing Languages</p> &bull;<Skill icon="simple-icons:python" name="Python" /> &bull; <Skill icon="simple-icons:mysql" name="MySQL" />&bull;</div>
+          <div><p class="text-sm text-muted-foreground">Scripting Languages</p> &bull;<Skill icon="simple-icons:gnubash" name="Shell Scripting (Bash)" /> &bull; <Skill icon="simple-icons:python" name="Python" /> &bull; etc.</div>
+          <div><p class="text-sm text-muted-foreground">Tools</p> &bull;<Skill icon="simple-icons:git" name="Git" /> &bull; <Skill icon="simple-icons:github" name="Github" />&bull;</div>
+          <div><p class="text-sm text-muted-foreground">Framework</p>&bull;<Skill icon="simple-icons:django" name="Django" /> &bull; <Skill name="Rest API" /> &bull; </div>
         </div>
       </div>
     </section>
